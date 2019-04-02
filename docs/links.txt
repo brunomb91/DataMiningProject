@@ -1,0 +1,7 @@
+Dados Pref. Rio:
+http://siurb-pcrj.hub.arcgis.com/datasets/5b1bf5c3e5114564bbf9b7a372b85e17_3
+http://siurb-pcrj.hub.arcgis.com/datasets/5b1bf5c3e5114564bbf9b7a372b85e17_2
+http://www.rio.rj.gov.br/web/smac/ar-do-rio#
+
+Datasets:
+https://toolbox.google.com/datasetsearch
