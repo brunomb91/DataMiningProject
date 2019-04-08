@@ -80,6 +80,12 @@ myplot6 <- ggplot(data,aes(Data))+geom_line(color="Purple",aes(y=CO))+ylab("CO")
                   theme(axis.text.x=element_text(angle=90,hjust=1))
 print(myplot6, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
+myplot7 <- ggplot(data,aes(Data))+geom_line(color="Purple",aes(y=CO))+geom_line(color="Blue",aes(y=SO2))+
+                  geom_line(color="Red",aes(y=NO2))+ylab("CO")+xlab("Time")+
+                  scale_x_datetime(labels=date_format("%H:%M"),
+                  limits=as.POSIXct(c("2012-01-01 8:00","2012-01-31 9:00"),tz="GMT"))
+print(myplot7, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
+
 
 myplot1 <- ggplot_gtable(ggplot_build(myplot1))
 myplot2 <- ggplot_gtable(ggplot_build(myplot2))
@@ -87,8 +93,11 @@ myplot3 <- ggplot_gtable(ggplot_build(myplot3))
 myplot4 <- ggplot_gtable(ggplot_build(myplot4))
 myplot5 <- ggplot_gtable(ggplot_build(myplot5))
 myplot6 <- ggplot_gtable(ggplot_build(myplot6))
+myplot7 <- ggplot_gtable(ggplot_build(myplot7))
 maxWidth = unit.pmax(myplot1$widths[2:3],myplot2$widths[2:3], myplot3$widths[2:3],myplot4$widths[2:3], myplot5$widths[2:3],myplot6$widths[2:3])
 
 myplot1$widths[2:3] <- maxWidth
 grid.arrange(myplot1, myplot2, myplot3, ncol=1)
 grid.arrange(myplot4, myplot5, myplot6, ncol=1)
+
+grid.arrange(myplot1, myplot2, myplot3, myplot4, myplot5, myplot6, ncol=2)
