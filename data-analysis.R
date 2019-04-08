@@ -1,3 +1,23 @@
+# Descrição do dataset
+
+# Dados do programa de monitoramento da qualidade do ar da Prefeitura da Cidade do Rio de Janeiro – MonitorAr. 
+# Inclui as estações fixas de qualidade do ar, localização das campanhas móveis e série histórica (2011 - 2018) de dados horários 
+# dos poluentes atmosféricos e de meteorologia das estações fixas e das campanhas móveis.
+# Parâmetros monitorados nas estações fixas:• Centro (CA): O3, CO, PM10• Copacabana (AV): SO2, O3, CO, PM10• 
+# São Cristóvão (SC): SO2, O3, CO, PM10• Tijuca (SP): SO2, NOx, O3, CO, PM10• Irajá (IR): SO2, NOx, O3, CO, HC, PM2.5, PM10
+# • Bangu (BG): SO2, NOx, O3, CO, HC, PM10• Campo Grande (CG): SO2, NOx, O3, CO, HC, PM10• Pedra de Guaratiba (PG): O3, PM10
+# Parâmetros monitorados nas campanhas móveis:• Estação móvel: SO2, NOx, O3, CO, PM2.5
+# As concentrações de Monóxido de Carbono (CO) e Hidrocarbonetos (HC) são medidas em partes por milhão [ppm] , 
+# enquanto as demais são medidas em microgramas por metro cúbico de ar [µg/m3]. O analisador de Óxidos de Nitrogênio (NOx) realiza 
+# medidas de concentração dos gases Monóxido de Nitrogênio (NO), Dióxido de Nitrogênio (NO2) e Óxidos de Nitrogênio (NO+NO2=NOX). 
+# O analisador de Hidrocarbonetos (HC) realiza medidas de concentração dos gases Hidrocarbonetos Não-Metano (HCNM), Metano (CH4) e 
+# Hidrocarbonetos Totais (HCT). Além dos poluentes atmosféricos, as estações de monitoramento do ar da Prefeitura do Rio de Janeiro 
+# realizam o monitoramento de variáveis meteorológicas. São elas:• Velocidade do Vento [m/s]• Direção do Vento [°]
+# • Radiação Solar [w/m2]• Precipitação Pluviométrica [mm]• Umidade Relativa do Ar [%]• Temperatura [°C]• Pressão Atmosférica [mbar]
+
+# Estações fixas: 1 - Copacabana (AV), 2 - Bangu (BG), 3 - Centro (CA), 4 - Campo Grande (CG), 5 - Irajá (IR), 
+# 6 - Pedra de Guaratiba (PG), 7 - São Cristóvão (SC), 8 - Tijuca (SP)
+
 # Instala??o e chamada dos pacotes necess?rios
 install.packages('ggplot2')
 install.packages('lubridate')
@@ -23,8 +43,6 @@ library(Hmisc)
 library(e1071)
 library(corrplot)
 library(dplyr)
-
-# Esta??es: 1 - AV, 2 - BG, 3 - CA, 4 - CG, 5 - IR, 6 - PG, 7 - SC, 8 - SP
 
 # Importa??o da base de dados
 data = read.csv('data/Dados_horários_do_monitoramento_da_qualidade_do_ar__MonitorAr.csv')
