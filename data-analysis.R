@@ -74,27 +74,27 @@ plot(data$Temp)
 # Plotando gr?ficos da base de dados
 myplot1 <- ggplot(data,aes(Data))+geom_line(color="Red",aes(y=Temp))+ylab("Temperature")+xlab("Time")+
                   scale_x_datetime(labels=date_format("%H:%M"),
-                  limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                  limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot1, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot2 <- ggplot(data,aes(Data))+geom_line(color="Blue",aes(y=Chuva))+ylab("Chuva")+xlab("Time")+
                   scale_x_datetime(labels=date_format("%H:%M"),
-                  limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                  limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot2, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot3 <- ggplot(data,aes(Data))+geom_line(color="Green",aes(y=Pres))+ylab("Pres")+xlab("Time")+
                   scale_x_datetime(labels=date_format("%H:%M"),
-                  limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                  limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot3, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot4 <- ggplot(data,aes(Data))+geom_line(color="Yellow",aes(y=RS))+ylab("RS")+xlab("Time")+
                   scale_x_datetime(labels=date_format("%H:%M"),
-                  limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                  limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot4, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot5 <- ggplot(data,aes(Data))+geom_line(color="Brown",aes(y=UR))+ylab("UR")+xlab("Time")+
                   scale_x_datetime(labels=date_format("%H:%M"),
-                  limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                  limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot5, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot1 <- ggplot_gtable(ggplot_build(myplot1))
@@ -112,13 +112,13 @@ myplot1$widths[2:3] <- maxWidth
 grid.arrange(myplot1, myplot2, myplot3, myplot4, myplot5, ncol=2)
 
 myplot6 <- ggplot(data,aes(Data))+geom_line(color="Red",aes(y=Dir_Vento))+ylab("Dir_Vento")+xlab("Time")+
-                  scale_x_datetime(labels=date_format("%H:%M"),
-                  limits=as.POSIXct(c("2012-01-01 8:00","2012-12-31 9:00"),tz="GMT"))
+                  scale_x_datetime(labels=date_format("%H:%M:%S"),
+                  limits=as.POSIXct(c("2013-01-01 08:00:00","2013-02-01 08:00:00"),tz="UTC"))
 #print(myplot6, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
   
 myplot7 <- ggplot(data,aes(Data))+geom_line(color="Blue",aes(y=Vel_Vento))+ylab("Vel_Vento")+xlab("Time")+
-                  scale_x_datetime(labels=date_format("%H:%M"),
-                  limits=as.POSIXct(c("2012-01-01 8:00","2012-12-31 9:00"),tz="GMT"))
+                  scale_x_datetime(labels=date_format("%H:%M:%S"),
+                  limits=as.POSIXct(c("2013-01-01 08:00:00","2013-02-01 08:00:00"),tz="UTC"))
 # print(myplot7, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
   
 myplot6 <- ggplot_gtable(ggplot_build(myplot6))
@@ -131,32 +131,32 @@ grid.arrange(myplot6, myplot7, ncol=1)
 
 myplot8 <- ggplot(data,aes(Data))+geom_line(color="Red",aes(y=SO2))+ylab("SO2")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-07-01 08:00:00"),tz="UTC"))
 #print(myplot1, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot9 <- ggplot(data,aes(Data))+geom_line(color="Blue",aes(y=NO2))+ylab("NO2")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-07-01 08:00:00"),tz="UTC"))
 #print(myplot2, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot10 <- ggplot(data,aes(Data))+geom_line(color="Green",aes(y=HCNM))+ylab("HCNM")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-07-01 08:00:00"),tz="UTC"))
 #print(myplot3, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot11 <- ggplot(data,aes(Data))+geom_line(color="Yellow",aes(y=HCT))+ylab("HCT")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-07-01 08:00:00"),tz="UTC"))
 #print(myplot4, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot12 <- ggplot(data,aes(Data))+geom_line(color="Brown",aes(y=CH4))+ylab("CH4")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-07-01 08:00:00"),tz="UTC"))
 #print(myplot5, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot13 <- ggplot(data,aes(Data))+geom_line(color="Orange",aes(y=CO))+ylab("CO")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-07-01 08:00:00"),tz="UTC"))
 #print(myplot5, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 
@@ -174,27 +174,27 @@ grid.arrange(myplot8, myplot9, myplot10, myplot11, myplot12, myplot13, ncol=2)
 
 myplot14 <- ggplot(data,aes(Data))+geom_line(color="Red",aes(y=NO))+ylab("NO")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot1, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot15 <- ggplot(data,aes(Data))+geom_line(color="Blue",aes(y=NOx))+ylab("NOx")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot2, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot16 <- ggplot(data,aes(Data))+geom_line(color="Green",aes(y=O3))+ylab("O3")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot3, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot17 <- ggplot(data,aes(Data))+geom_line(color="Yellow",aes(y=PM10))+ylab("PM10")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot4, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 myplot18 <- ggplot(data,aes(Data))+geom_line(color="Brown",aes(y=PM2_5))+ylab("PM2_5")+xlab("Time")+
   scale_x_datetime(labels=date_format("%H:%M"),
-                   limits=as.POSIXct(c("2012-01-01 8:00","2012-02-01 9:00"),tz="GMT"))
+                   limits=as.POSIXct(c("2012-01-01 08:00:00","2012-02-01 08:00:00"),tz="UTC"))
 #print(myplot5, vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
 
 
