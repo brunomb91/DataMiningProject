@@ -98,6 +98,15 @@ data$PM2_5 = ifelse(is.na(data$PM2_5), mean(data$PM2_5, na.rm = TRUE), data$PM2_
 plot(data$Temp)
 points(data$Temp, col = 'dark red')
 
+# Verificando as maiores correlações
+for(i in 3:20) {
+  for(j in 3:20) {
+    if(cor(data[,i], data[,j]) >= 0.4) {
+      print(i);print(j);print(cor(data[,i], data[,j]))
+    }
+  }
+}
+
 # Correlações moderadas ou altas
 cor(data$RS, data$O3)
 cor(data$Temp, data$UR)
@@ -116,31 +125,22 @@ cor(data$CH4, data$HCNM)
 cor(data$CH4, data$NO)
 cor(data$CH4, data$NOx)
 
-# Verificando as maiores correlações
-for(i in 3:20) {
-  for(j in 3:20) {
-    if(cor(data[,i], data[,j]) >= 0.4) {
-      print(i);print(j);print(cor(data[,i], data[,j]))
-    }
-  }
-}
-
-cor1 = ggplot()+geom_point(aes(x = data$NO, y=data$NO2))
+cor1 = ggplot(data, aes(NO, NO2))+geom_point(colour = 'red')
 cor2 = ggplot()+geom_point(aes(x = data$RS, y=data$O3))         
 cor3 = ggplot()+geom_point(aes(x = data$Temp, y=data$UR))
 cor4 = ggplot()+geom_point(aes(x = data$Temp, y=data$RS))
 cor5 = ggplot()+geom_point(aes(x = data$Temp, y=data$O3))
 cor6 = ggplot()+geom_point(aes(x = data$Vel_Vento, y=data$O3))
-cor6 = ggplot()+geom_point(aes(x = data$NO, y=data$NOx))
-cor7 = ggplot()+geom_point(aes(x = data$NO2, y=data$NOx))
-cor8 = ggplot()+geom_point(aes(x = data$HCT, y=data$HCNM))
-cor9 = ggplot()+geom_point(aes(x = data$HCT, y=data$NO))
-cor10 = ggplot()+geom_point(aes(x = data$HCT, y=data$NOx))
-cor11 = ggplot()+geom_point(aes(x = data$NOx, y=data$HCNM))
-cor12 = ggplot()+geom_point(aes(x = data$HCT, y=data$CH4))
-cor13 = ggplot()+geom_point(aes(x = data$CH4, y=data$HCNM))
-cor14 = ggplot()+geom_point(aes(x = data$CH4, y=data$NO))
-cor15 = ggplot()+geom_point(aes(x = data$CH4, y=data$NOx))
+cor7 = ggplot()+geom_point(aes(x = data$NO, y=data$NOx))
+cor8 = ggplot()+geom_point(aes(x = data$NO2, y=data$NOx))
+cor9 = ggplot()+geom_point(aes(x = data$HCT, y=data$HCNM))
+cor10 = ggplot()+geom_point(aes(x = data$HCT, y=data$NO))
+cor11 = ggplot()+geom_point(aes(x = data$HCT, y=data$NOx))
+cor12 = ggplot()+geom_point(aes(x = data$NOx, y=data$HCNM))
+cor13 = ggplot()+geom_point(aes(x = data$HCT, y=data$CH4))
+cor14 = ggplot()+geom_point(aes(x = data$CH4, y=data$HCNM))
+cor15 = ggplot()+geom_point(aes(x = data$CH4, y=data$NO))
+cor16 = ggplot()+geom_point(aes(x = data$CH4, y=data$NOx))
 
 cor1 <- ggplot_gtable(ggplot_build(cor1))
 cor2 <- ggplot_gtable(ggplot_build(cor2))
@@ -157,24 +157,34 @@ cor12 <- ggplot_gtable(ggplot_build(cor12))
 cor13 <- ggplot_gtable(ggplot_build(cor13))
 cor14 <- ggplot_gtable(ggplot_build(cor14))
 cor15 <- ggplot_gtable(ggplot_build(cor15))
+cor16 <- ggplot_gtable(ggplot_build(cor16))
+
+grid.arrange(cor1)
 
 maxWidth_cor = unit.pmax(cor1$widths[2:3],
                          cor2$widths[2:3], 
                          cor3$widths[2:3], 
                          cor4$widths[2:3], 
                          cor5$widths[2:3],
-                         cor6$widths[2:3],
-                         cor7$widths[2:3],
-                         cor8$widths[2:3],
-                         cor9$widths[2:3],
-                         cor10$widths[2:3],
-                         cor11$widths[2:3],
-                         cor12$widths[2:3],
-                         cor13$widths[2:3],
-                         cor14$widths[2:3],
-                         cor15$widths[2:3])
+                         cor6$widths[2:3])
 
-grid.arrange(cor1,cor2, cor3, cor4, cor5, cor6, cor7, cor8, cor9, cor10, cor11, cor12, cor13, cor14, cor15, ncol=2)
+grid.arrange(cor1,cor2, cor3, cor4, cor5, cor6, ncol=2)
+
+maxWidth_cor = unit.pmax(cor7$widths[2:3],
+                         cor8$widths[2:3], 
+                         cor9$widths[2:3], 
+                         cor10$widths[2:3], 
+                         cor11$widths[2:3],
+                         cor12$widths[2:3])
+
+grid.arrange(cor7,cor8, cor9, cor10, cor11, cor12, ncol=2)
+
+maxWidth_cor = unit.pmax(cor13$widths[2:3],
+                         cor14$widths[2:3], 
+                         cor15$widths[2:3], 
+                         cor16$widths[2:3])
+
+grid.arrange(cor13, cor14, cor15, cor16, ncol=2) 
 
 # Plotando gr?ficos da base de dados
 myplot1 <- ggplot(data,aes(Data))+geom_line(color="Red",aes(y=Temp))+ylab("Temperature")+xlab("Time")+
