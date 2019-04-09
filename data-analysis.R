@@ -44,7 +44,7 @@ library(e1071)
 library(corrplot)
 library(dplyr)
 
-# Importa??o da base de dados
+# Importação da base de dados
 data = read.csv('data/Dados_horários_do_monitoramento_da_qualidade_do_ar__MonitorAr.csv')
 
 summary(data)
@@ -54,6 +54,14 @@ summary(data)
 # Eliminando colunas desnecessárias
 data$Estação <- NULL
 data$OBJECTID <- NULL
+
+data$X_UTM_Sirgas2000 <- NULL
+data$Y_UTM_Sirgas2000 <- NULL
+data$Lat <- NULL
+data$Lon <- NULL
+
+# data$EstaÃ.Ã.o <- NULL
+# data$ï..OBJECTID <- NULL
 
 # Alterando formato de data para o formato UTC
 data$Data<- ymd_hms(data$Data)
@@ -65,7 +73,7 @@ mean(data$Temp, na.rm = TRUE)
 boxplot(data$UR)
 mean(data$UR, na.rm = TRUE)
 
-# Retirando os termos NA da base de dados e outliers
+# Retirando os termos NA da base de dados
 data$Chuva = ifelse(is.na(data$Chuva), mean(data$Chuva, na.rm = TRUE), data$Chuva)
 data$Pres = ifelse(is.na(data$Pres), mean(data$Pres, na.rm = TRUE), data$Pres)
 data$RS = ifelse(is.na(data$RS), mean(data$RS, na.rm = TRUE), data$RS)
@@ -88,6 +96,85 @@ data$PM2_5 = ifelse(is.na(data$PM2_5), mean(data$PM2_5, na.rm = TRUE), data$PM2_
 # data$Temp = ifelse(data$Temp >= 100, mean(data$Temp, na.rm = TRUE), data$Temp)
 
 plot(data$Temp)
+points(data$Temp, col = 'dark red')
+
+# Correlações moderadas ou altas
+cor(data$RS, data$O3)
+cor(data$Temp, data$UR)
+cor(data$Temp, data$RS)
+cor(data$Temp, data$O3)
+cor(data$Vel_Vento, data$O3)
+cor(data$NO, data$NOx)
+cor(data$NO, data$NO2)
+cor(data$NOx, data$NO2)
+cor(data$HCT, data$HCNM)
+cor(data$HCT, data$NO)
+cor(data$HCT, data$NOx)
+cor(data$NOx, data$HCNM)
+cor(data$HCT, data$CH4)
+cor(data$CH4, data$HCNM)
+cor(data$CH4, data$NO)
+cor(data$CH4, data$NOx)
+
+# Verificando as maiores correlações
+for(i in 3:20) {
+  for(j in 3:20) {
+    if(cor(data[,i], data[,j]) >= 0.4) {
+      print(i);print(j);print(cor(data[,i], data[,j]))
+    }
+  }
+}
+
+cor1 = ggplot()+geom_point(aes(x = data$NO, y=data$NO2))
+cor2 = ggplot()+geom_point(aes(x = data$RS, y=data$O3))         
+cor3 = ggplot()+geom_point(aes(x = data$Temp, y=data$UR))
+cor4 = ggplot()+geom_point(aes(x = data$Temp, y=data$RS))
+cor5 = ggplot()+geom_point(aes(x = data$Temp, y=data$O3))
+cor6 = ggplot()+geom_point(aes(x = data$Vel_Vento, y=data$O3))
+cor6 = ggplot()+geom_point(aes(x = data$NO, y=data$NOx))
+cor7 = ggplot()+geom_point(aes(x = data$NO2, y=data$NOx))
+cor8 = ggplot()+geom_point(aes(x = data$HCT, y=data$HCNM))
+cor9 = ggplot()+geom_point(aes(x = data$HCT, y=data$NO))
+cor10 = ggplot()+geom_point(aes(x = data$HCT, y=data$NOx))
+cor11 = ggplot()+geom_point(aes(x = data$NOx, y=data$HCNM))
+cor12 = ggplot()+geom_point(aes(x = data$HCT, y=data$CH4))
+cor13 = ggplot()+geom_point(aes(x = data$CH4, y=data$HCNM))
+cor14 = ggplot()+geom_point(aes(x = data$CH4, y=data$NO))
+cor15 = ggplot()+geom_point(aes(x = data$CH4, y=data$NOx))
+
+cor1 <- ggplot_gtable(ggplot_build(cor1))
+cor2 <- ggplot_gtable(ggplot_build(cor2))
+cor3 <- ggplot_gtable(ggplot_build(cor3))
+cor4 <- ggplot_gtable(ggplot_build(cor4))
+cor5 <- ggplot_gtable(ggplot_build(cor5))
+cor6 <- ggplot_gtable(ggplot_build(cor6))
+cor7 <- ggplot_gtable(ggplot_build(cor7))
+cor8 <- ggplot_gtable(ggplot_build(cor8))
+cor9 <- ggplot_gtable(ggplot_build(cor9))
+cor10 <- ggplot_gtable(ggplot_build(cor10))
+cor11 <- ggplot_gtable(ggplot_build(cor11))
+cor12 <- ggplot_gtable(ggplot_build(cor12))
+cor13 <- ggplot_gtable(ggplot_build(cor13))
+cor14 <- ggplot_gtable(ggplot_build(cor14))
+cor15 <- ggplot_gtable(ggplot_build(cor15))
+
+maxWidth_cor = unit.pmax(cor1$widths[2:3],
+                         cor2$widths[2:3], 
+                         cor3$widths[2:3], 
+                         cor4$widths[2:3], 
+                         cor5$widths[2:3],
+                         cor6$widths[2:3],
+                         cor7$widths[2:3],
+                         cor8$widths[2:3],
+                         cor9$widths[2:3],
+                         cor10$widths[2:3],
+                         cor11$widths[2:3],
+                         cor12$widths[2:3],
+                         cor13$widths[2:3],
+                         cor14$widths[2:3],
+                         cor15$widths[2:3])
+
+grid.arrange(cor1,cor2, cor3, cor4, cor5, cor6, cor7, cor8, cor9, cor10, cor11, cor12, cor13, cor14, cor15, ncol=2)
 
 # Plotando gr?ficos da base de dados
 myplot1 <- ggplot(data,aes(Data))+geom_line(color="Red",aes(y=Temp))+ylab("Temperature")+xlab("Time")+
