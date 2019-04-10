@@ -1,3 +1,7 @@
+base = read.csv('plano-saude2.csv')
+
+
+
 # Descrição do dataset
 
 # Dados do programa de monitoramento da qualidade do ar da Prefeitura da Cidade do Rio de Janeiro – MonitorAr. 
@@ -30,6 +34,7 @@ install.packages('Hmisc')
 install.packages('e1071')
 install.packages('corrplot')
 install.packages('dplyr')
+install.packages('miscTools')
 
 library(lubridate)
 library(ggplot2)
@@ -43,6 +48,7 @@ library(Hmisc)
 library(e1071)
 library(corrplot)
 library(dplyr)
+library(miscTools)
 
 # Importação da base de dados
 data = read.csv('data/Dados_horários_do_monitoramento_da_qualidade_do_ar__MonitorAr.csv')
@@ -93,6 +99,15 @@ data$O3 = ifelse(is.na(data$O3), mean(data$O3, na.rm = TRUE), data$O3)
 data$PM10 = ifelse(is.na(data$PM10), mean(data$PM10, na.rm = TRUE), data$PM10)
 data$PM2_5 = ifelse(is.na(data$PM2_5), mean(data$PM2_5, na.rm = TRUE), data$PM2_5)
 
+# 1 - AV - SO2, O3, CO, PM10
+# 2 - BG - SO2, NOx, O3, CO, HC, PM10
+# 3 - CA - O3, CO, PM1
+# 4 - CG - SO2, NOx, O3, CO, HC, PM10
+# 5 - IR - SO2, NOx, O3, CO, HC, PM2.5, PM10
+# 6 - PG - O3, PM10
+# 7 - SC - SO2, O3, CO, PM10
+# 8 - SP - SO2, NOx, O3, CO, PM10
+
 # data$Temp = ifelse(data$Temp >= 100, mean(data$Temp, na.rm = TRUE), data$Temp)
 divide = split(data, data$CodNum)
 data1 = divide[["1"]]
@@ -119,6 +134,21 @@ cor(data1$RS, data1$Temp) # 4 5
 cor(data1$RS, data1$UR) # 4 6
 cor(data1$Temp, data1$UR) # 5 6
 cor(data1$SO2, data1$CO) # 9 14
+
+cor(data1$Pres, data1$SO2) # -0.08887305 (Baixa)
+
+regressor = randomForest(x = data1[9], y = data1$CO, ntree = 10)
+summary(regressor)
+
+previsoes = predict(regressor, newdata = data1[9])
+
+cc = rSquared(data1[['CO']], resid = data1[['CO']] - previsoes)
+x_teste = seq(min(data1$SO2), max(data1$SO2), 0.1)
+
+previsoes2 = predict(regressor, newdata = data.frame(SO2 = x_teste))
+
+ggplot() + geom_point(aes(x = data1$SO2, y = data1$CO), colour = 'blue') +
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
 
 #Correlações Estação 2
 cor(data2$Pres, data2$Temp) # 3 5
