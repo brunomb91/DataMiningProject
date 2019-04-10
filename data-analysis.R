@@ -60,8 +60,8 @@ data$Y_UTM_Sirgas2000 <- NULL
 data$Lat <- NULL
 data$Lon <- NULL
 
-# data$EstaÃ.Ã.o <- NULL
-# data$ï..OBJECTID <- NULL
+data$EstaÃ.Ã.o <- NULL
+data$ï..OBJECTID <- NULL
 
 # Alterando formato de data para o formato UTC
 data$Data<- ymd_hms(data$Data)
@@ -94,16 +94,190 @@ data$PM10 = ifelse(is.na(data$PM10), mean(data$PM10, na.rm = TRUE), data$PM10)
 data$PM2_5 = ifelse(is.na(data$PM2_5), mean(data$PM2_5, na.rm = TRUE), data$PM2_5)
 
 # data$Temp = ifelse(data$Temp >= 100, mean(data$Temp, na.rm = TRUE), data$Temp)
+divide = split(data, data$CodNum)
+data1 = divide[["1"]]
+data2 = divide[["2"]]
+data3 = divide[["3"]]
+data4 = divide[["4"]]
+data5 = divide[["5"]]
+data6 = divide[["6"]]
+data7 = divide[["7"]]
+data8 = divide[["8"]]
 
-plot(data$Temp)
-points(data$Temp, col = 'dark red')
+data1$CodNum = NULL
+data2$CodNum = NULL
+data3$CodNum = NULL
+data4$CodNum = NULL
+data5$CodNum = NULL
+data6$CodNum = NULL
+data7$CodNum = NULL
+data8$CodNum = NULL
+
+# Correlações Estação 1
+cor(data1$Pres, data1$Temp) # 3 5
+cor(data1$RS, data1$Temp) # 4 5
+cor(data1$RS, data1$UR) # 4 6
+cor(data1$Temp, data1$UR) # 5 6
+cor(data1$SO2, data1$CO) # 9 14
+
+#Correlações Estação 2
+cor(data2$Pres, data2$Temp) # 3 5
+cor(data2$RS, data2$Temp) # 4 5
+cor(data2$RS, data2$UR) # 4 6
+cor(data2$RS, data2$O3) # 4 17
+cor(data2$Temp, data2$O3) # 5 17
+cor(data2$UR, data2$Temp) # 6 5
+cor(data2$UR, data2$O3) # 6 17
+cor(data2$NO2, data2$HCNM) # 10 11
+cor(data2$NO2, data2$CO) # 10 14
+cor(data2$NO2, data2$NO) # 10 15
+cor(data2$NO2, data2$NOx) # 10 16
+cor(data2$NO2, data2$PM10) # 10 18
+cor(data2$HCNM, data2$HCT) # 11 12
+cor(data2$HCNM, data2$CH4) # 11 13
+cor(data2$HCNM, data2$CO) # 11 14
+cor(data2$HCNM, data2$NO) # 11 15
+cor(data2$HCNM, data2$NOx) # 11 16
+cor(data2$HCT, data2$CH4) # 12 13
+cor(data2$HCT, data2$CO) # 12 14
+cor(data2$HCT, data2$NO) # 12 15
+cor(data2$HCT, data2$NOx) # 12 16
+cor(data2$CH4, data2$NO) # 13 15
+cor(data2$CH4, data2$NOx) # 13 16
+cor(data2$CO, data2$NO) # 14 15
+cor(data2$CO, data2$PM10) # 14 18
+cor(data2$NO, data2$NOx) # 15 16
+cor(data2$NOx, data2$NO2) # 16 10
+cor(data2$NOx, data2$HCNM) # 16 11
+cor(data2$NOx, data2$HCT) # 16 12
+cor(data2$NOx, data2$CH4) # 16 13
+cor(data2$NOx, data2$CO) # 16 14
+cor(data2$NOx, data2$NO) # 16 15
+cor(data2$NOx, data2$PM10) # 16 18
+
+#Correlações Estação 3
+cor(data3$Pres, data3$Temp) # 3 5
+cor(data3$RS, data3$Temp) # 4 5
+cor(data3$RS, data3$UR) # 4 6
+cor(data3$RS, data3$Vel_Vento) # 4 8
+cor(data3$RS, data3$O3) # 4 17
+cor(data3$UR, data3$Temp) # 6 5
+cor(data3$Dir_Vento, data3$Vel_Vento) # 7 8
+cor(data3$Vel_Vento, data3$O3) # 8 17
+
+#Correlações Estação 4
+cor(data4$Pres, data4$Temp) # 3 5
+cor(data4$RS, data4$Temp) # 4 5
+cor(data4$RS, data4$UR) # 4 6
+cor(data4$RS, data4$O3) # 4 17
+cor(data4$Temp, data4$UR) # 5 6
+cor(data4$Temp, data4$O3) # 5 17
+cor(data4$NO2, data4$HCNM) # 10 11
+cor(data4$NO2, data4$CO) # 10 14
+cor(data4$NO2, data4$NO) # 10 15
+cor(data4$NO2, data4$NOx) # 10 16
+cor(data4$NO2, data4$PM10) # 10 18
+cor(data4$HCNM, data4$HCT) # 11 12
+cor(data4$HCNM, data4$CH4) # 11 13
+cor(data4$HCNM, data4$CO) # 11 14
+cor(data4$HCNM, data4$NOx) # 11 16
+cor(data4$HCNM, data4$PM10) # 11 18
+cor(data4$HCT, data4$CH4) # 12 13
+cor(data4$HCT, data4$CO) # 12 14
+cor(data4$HCT, data4$NOx) # 12 16
+cor(data4$CO, data4$NOx) # 14 16
+cor(data4$CO, data4$PM10) # 14 18
+cor(data4$NO, data4$NOx) # 15 16
+
+#Correlações Estação 5
+cor(data5$Pres, data5$Temp) # 3 5
+cor(data5$RS, data5$Temp) # 4 5
+cor(data5$RS, data5$UR) # 4 6
+cor(data5$RS, data5$O3) # 4 17
+cor(data5$Temp, data5$UR) # 5 6
+cor(data5$Temp, data5$O3) # 5 17
+cor(data5$UR, data5$O3) # 6 17
+cor(data5$NO2, data5$CO) # 10 14
+cor(data5$NO2, data5$NO) # 10 15
+cor(data5$NO2, data5$NOx) # 10 16
+cor(data5$NO2, data5$PM10) # 10 18
+cor(data5$NO2, data5$PM2_5) # 10 19
+cor(data5$HCNM, data5$HCT) # 11 12
+cor(data5$HCNM, data5$CH4) # 11 13
+cor(data5$HCNM, data5$CO) # 11 14
+cor(data5$HCNM, data5$NO) # 11 15
+cor(data5$HCNM, data5$NOx) # 11 16
+cor(data5$HCT, data5$NO2) # 12 10
+cor(data5$HCT, data5$HCNM) # 12 11
+cor(data5$HCT, data5$CH4) # 12 13
+cor(data5$HCT, data5$CO) # 12 14
+cor(data5$HCT, data5$NO) # 12 15
+cor(data5$HCT, data5$NOx) # 12 16
+cor(data5$HCT, data5$PM10) # 12 18
+cor(data5$HCT, data5$PM2_5) # 12 19
+cor(data5$CH4, data5$CO) # 13 14
+cor(data5$CH4, data5$NO) # 13 15
+cor(data5$CH4, data5$NOx) # 13 16
+cor(data5$CH4, data5$PM10) # 13 18
+cor(data5$CH4, data5$PM2_5) # 13 19
+cor(data5$CO, data5$NO) # 14 15
+cor(data5$CO, data5$NOx) # 14 16
+cor(data5$CO, data5$PM10) # 14 18
+cor(data5$CO, data5$PM2_5) # 14 19
+cor(data5$NO, data5$NOx) # 15 16
+cor(data5$NO, data5$PM10) # 15 18
+cor(data5$NO, data5$PM2_5) # 15 19
+cor(data5$NOx, data5$PM10) # 16 18
+cor(data5$NOx, data5$PM2_5) # 16 19
+cor(data5$PM10, data5$PM2_5) # 18 19
+
+#Correlações Estação 6
+cor(data6$Pres, data6$Temp) # 3 5
+cor(data6$RS, data6$Temp) # 4 5
+cor(data6$RS, data6$UR) # 4 6
+cor(data6$RS, data6$O3) # 4 17
+cor(data6$Temp, data6$UR) # 5 6
+cor(data6$Temp, data6$O3) # 5 17
+
+#Correlações Estação 7
+cor(data7$Pres, data7$Temp) # 3 5
+cor(data7$RS, data7$Temp) # 4 5
+cor(data7$RS, data7$UR) # 4 6
+cor(data7$RS, data7$Vel_Vento) # 4 8
+cor(data7$RS, data7$O3) # 4 17
+cor(data7$Temp, data7$UR) # 5 6
+cor(data7$Temp, data7$Vel_Vento) # 5 8
+cor(data7$Temp, data7$O3) # 5 17
+cor(data7$UR, data7$Vel_Vento) # 6 8
+cor(data7$UR, data7$O3) # 6 17
+cor(data7$Vel_Vento, data7$O3) # 8 17
+cor(data7$SO2, data7$PM10) # 9 18
+cor(data7$CO, data7$PM10) # 14 18
+
+#Correlações Estação 8
+cor(data8$Pres, data8$Temp) # 3 5
+cor(data8$RS, data8$Temp) # 4 5
+cor(data8$RS, data8$UR) # 4 6
+cor(data8$RS, data8$O3) # 4 17
+cor(data8$Temp, data8$UR) # 5 6
+cor(data8$Temp, data8$O3) # 5 17
+cor(data8$UR, data8$O3) # 6 17
+cor(data8$Vel_Vento, data8$O3) # 8 17
+cor(data8$SO2, data8$PM10) # 9 18
+cor(data8$NO2, data8$NO) # 10 15
+cor(data8$NO2, data8$NOx) # 10 16
+cor(data8$NO, data8$NOx) # 15 16
+
+
+# plot(data$Temp)
+# points(data$Temp, col = 'dark red')
 
 # Verificando as maiores correlações
-for(i in 3:20) {
-  for(j in 3:20) {
-    if(cor(data[,i], data[,j]) >= 0.4) {
-      print(i);print(j);print(cor(data[,i], data[,j]))
-    }
+for(i in 3:19) {
+  for(j in 3:19) {
+    # if(cor(data1[,i], data1[,j]) >= 0.4) {
+      print(i);print(j);print(cor(data8[,i], data8[,j]))
+    # }
   }
 }
 
@@ -125,7 +299,7 @@ cor(data$CH4, data$HCNM)
 cor(data$CH4, data$NO)
 cor(data$CH4, data$NOx)
 
-cor1 = ggplot(data, aes(NO, NO2))+geom_point(colour = 'red')
+cor1 = ggplot()+geom_point(aes(x = data$NO, y = data$NO2))
 cor2 = ggplot()+geom_point(aes(x = data$RS, y=data$O3))         
 cor3 = ggplot()+geom_point(aes(x = data$Temp, y=data$UR))
 cor4 = ggplot()+geom_point(aes(x = data$Temp, y=data$RS))
