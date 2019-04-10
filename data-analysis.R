@@ -1,7 +1,3 @@
-base = read.csv('plano-saude2.csv')
-
-
-
 # Descrição do dataset
 
 # Dados do programa de monitoramento da qualidade do ar da Prefeitura da Cidade do Rio de Janeiro – MonitorAr. 
@@ -66,8 +62,8 @@ data$Y_UTM_Sirgas2000 <- NULL
 data$Lat <- NULL
 data$Lon <- NULL
 
-data$EstaÃ.Ã.o <- NULL
-data$ï..OBJECTID <- NULL
+# data$EstaÃ.Ã.o <- NULL
+# data$ï..OBJECTID <- NULL
 
 # Alterando formato de data para o formato UTC
 data$Data<- ymd_hms(data$Data)
@@ -182,8 +178,20 @@ cor(data2$NOx, data2$HCNM) # 16 11
 cor(data2$NOx, data2$HCT) # 16 12
 cor(data2$NOx, data2$CH4) # 16 13
 cor(data2$NOx, data2$CO) # 16 14
-cor(data2$NOx, data2$NO) # 16 15
 cor(data2$NOx, data2$PM10) # 16 18
+
+regressor = randomForest(x = data2[16], y = data2$CO, ntree = 10)
+summary(regressor)
+
+previsoes = predict(regressor, newdata = data2[16])
+
+cc = rSquared(data2[['CO']], resid = data2[['CO']] - previsoes)
+x_teste = seq(min(data2$NOx), max(data2$NOx), 0.1)
+
+previsoes2 = predict(regressor, newdata = data.frame(NOx = x_teste))
+
+ggplot() + geom_point(aes(x = data2$NOx, y = data2$CO), colour = 'blue') +
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
 
 #Correlações Estação 3
 cor(data3$Pres, data3$Temp) # 3 5
@@ -194,6 +202,20 @@ cor(data3$RS, data3$O3) # 4 17
 cor(data3$UR, data3$Temp) # 6 5
 cor(data3$Dir_Vento, data3$Vel_Vento) # 7 8
 cor(data3$Vel_Vento, data3$O3) # 8 17
+
+regressor = randomForest(x = data3[8], y = data3$O3, ntree = 10)
+summary(regressor)
+
+previsoes = predict(regressor, newdata = data3[8])
+
+cc = rSquared(data3[['O3']], resid = data3[['O3']] - previsoes)
+x_teste = seq(min(data3$Vel_Vento), max(data3$Vel_Vento), 0.1)
+
+previsoes2 = predict(regressor, newdata = data.frame(Vel_Vento = x_teste))
+
+ggplot() + geom_point(aes(x = data3$Vel_Vento, y = data3$O3), colour = 'blue') +
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
+
 
 #Correlações Estação 4
 cor(data4$Pres, data4$Temp) # 3 5
@@ -218,6 +240,19 @@ cor(data4$HCT, data4$NOx) # 12 16
 cor(data4$CO, data4$NOx) # 14 16
 cor(data4$CO, data4$PM10) # 14 18
 cor(data4$NO, data4$NOx) # 15 16
+
+regressor = randomForest(x = data4[4], y = data4$O3, ntree = 10)
+summary(regressor)
+
+previsoes = predict(regressor, newdata = data4[4])
+
+cc = rSquared(data4[['O3']], resid = data4[['O3']] - previsoes)
+x_teste = seq(min(data4$RS), max(data4$RS), 0.1)
+
+previsoes2 = predict(regressor, newdata = data.frame(RS = x_teste))
+
+ggplot() + geom_point(aes(x = data4$RS, y = data4$O3), colour = 'blue') +
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
 
 #Correlações Estação 5
 cor(data5$Pres, data5$Temp) # 3 5
@@ -261,6 +296,20 @@ cor(data5$NOx, data5$PM10) # 16 18
 cor(data5$NOx, data5$PM2_5) # 16 19
 cor(data5$PM10, data5$PM2_5) # 18 19
 
+regressor = randomForest(x = data5[18], y = data5$PM2_5, ntree = 10)
+summary(regressor)
+
+previsoes = predict(regressor, newdata = data5[18])
+
+cc = rSquared(data5[['PM2_5']], resid = data5[['PM2_5']] - previsoes)
+x_teste = seq(min(data5$PM10), max(data5$PM10), 0.1)
+
+previsoes2 = predict(regressor, newdata = data.frame(PM10 = x_teste))
+
+ggplot() + geom_point(aes(x = data5$PM10, y = data5$PM2_5), colour = 'blue') +
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
+
+
 #Correlações Estação 6
 cor(data6$Pres, data6$Temp) # 3 5
 cor(data6$RS, data6$Temp) # 4 5
@@ -268,6 +317,19 @@ cor(data6$RS, data6$UR) # 4 6
 cor(data6$RS, data6$O3) # 4 17
 cor(data6$Temp, data6$UR) # 5 6
 cor(data6$Temp, data6$O3) # 5 17
+
+regressor = randomForest(x = data6[4], y = data6$UR, ntree = 10)
+summary(regressor)
+
+previsoes = predict(regressor, newdata = data6[4])
+
+cc = rSquared(data6[['UR']], resid = data6[['UR']] - previsoes)
+x_teste = seq(min(data6$RS), max(data6$RS), 0.1)
+
+previsoes2 = predict(regressor, newdata = data.frame(RS = x_teste))
+
+ggplot() + geom_point(aes(x = data6$RS, y = data6$UR), colour = 'blue') +
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
 
 #Correlações Estação 7
 cor(data7$Pres, data7$Temp) # 3 5
@@ -284,6 +346,19 @@ cor(data7$Vel_Vento, data7$O3) # 8 17
 cor(data7$SO2, data7$PM10) # 9 18
 cor(data7$CO, data7$PM10) # 14 18
 
+regressor = randomForest(x = data7[14], y = data7$PM10, ntree = 10)
+summary(regressor)
+
+previsoes = predict(regressor, newdata = data7[14])
+
+cc = rSquared(data7[['PM10']], resid = data7[['PM10']] - previsoes)
+x_teste = seq(min(data7$CO), max(data7$CO), 0.1)
+
+previsoes2 = predict(regressor, newdata = data.frame(CO = x_teste))
+
+ggplot() + geom_point(aes(x = data7$CO, y = data7$PM10), colour = 'blue') +
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
+
 #Correlações Estação 8
 cor(data8$Pres, data8$Temp) # 3 5
 cor(data8$RS, data8$Temp) # 4 5
@@ -298,6 +373,18 @@ cor(data8$NO2, data8$NO) # 10 15
 cor(data8$NO2, data8$NOx) # 10 16
 cor(data8$NO, data8$NOx) # 15 16
 
+regressor = randomForest(x = data8[10], y = data8$NOx, ntree = 10)
+summary(regressor)
+
+previsoes = predict(regressor, newdata = data8[10])
+
+cc = rSquared(data8[['NOx']], resid = data8[['NOx']] - previsoes)
+x_teste = seq(min(data8$NO2), max(data8$NO2), 0.1)
+
+previsoes2 = predict(regressor, newdata = data.frame(NO2 = x_teste))
+
+ggplot() + geom_point(aes(x = data8$NO2, y = data8$NOx), colour = 'blue') +
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
 
 # plot(data$Temp)
 # points(data$Temp, col = 'dark red')
