@@ -133,18 +133,21 @@ cor(data1$SO2, data1$CO) # 9 14
 
 cor(data1$Pres, data1$SO2) # -0.08887305 (Baixa)
 
-regressor = randomForest(x = data1[9], y = data1$CO, ntree = 10)
+regressor = randomForest(x = data1[10], y = data1$CO, ntree = 10)
 summary(regressor)
 
-previsoes = predict(regressor, newdata = data1[9])
+previsoes = predict(regressor, newdata = data1[10])
 
 cc = rSquared(data1[['CO']], resid = data1[['CO']] - previsoes)
 x_teste = seq(min(data1$SO2), max(data1$SO2), 0.1)
 
 previsoes2 = predict(regressor, newdata = data.frame(SO2 = x_teste))
 
+titulo = paste(c('Poluentes da estação', data1$CodNum[1]), collapse = ' ')
+
 ggplot() + geom_point(aes(x = data1$SO2, y = data1$CO), colour = 'blue') +
-  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')+ylab('CO')+
+  xlab('SO2')+ggtitle(titulo)
 
 #Correlações Estação 2
 cor(data2$Pres, data2$Temp) # 3 5
@@ -190,6 +193,8 @@ x_teste = seq(min(data2$NOx), max(data2$NOx), 0.1)
 
 previsoes2 = predict(regressor, newdata = data.frame(NOx = x_teste))
 
+titulo = paste(c('Poluentes da estação', data2$CodNum[1]), collapse = ' ')
+
 ggplot() + geom_point(aes(x = data2$NOx, y = data2$CO), colour = 'blue') +
   geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
 
@@ -203,18 +208,21 @@ cor(data3$UR, data3$Temp) # 6 5
 cor(data3$Dir_Vento, data3$Vel_Vento) # 7 8
 cor(data3$Vel_Vento, data3$O3) # 8 17
 
-regressor = randomForest(x = data3[8], y = data3$O3, ntree = 10)
+regressor = randomForest(x = data3[9], y = data3$O3, ntree = 10)
 summary(regressor)
 
-previsoes = predict(regressor, newdata = data3[8])
+previsoes = predict(regressor, newdata = data3[9])
 
 cc = rSquared(data3[['O3']], resid = data3[['O3']] - previsoes)
 x_teste = seq(min(data3$Vel_Vento), max(data3$Vel_Vento), 0.1)
 
 previsoes2 = predict(regressor, newdata = data.frame(Vel_Vento = x_teste))
 
+titulo = paste(c('Estação', data3$CodNum[1]), collapse = ' ')
+
 ggplot() + geom_point(aes(x = data3$Vel_Vento, y = data3$O3), colour = 'blue') +
-  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')
+  geom_line(aes(x = x_teste, y = previsoes2), colour = 'red')+ylab('O3')+
+  xlab('Vel_Vento')+ggtitle(titulo)
 
 
 #Correlações Estação 4
